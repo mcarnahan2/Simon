@@ -6,13 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Simon"
+            android:textSize="40sp" />
+
+        <Button
+            android:id="@+id/elimination_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Play Elimination" />
+
+        <Button
+            android:id="@+id/rewind_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Play Rewind" />
+
+        <Button
+            android:id="@+id/surprise_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Play Surprise" />
+
+        <Button
+            android:id="@+id/swipe_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Play Swipe" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
