@@ -13,7 +13,7 @@
         android:layout_height="250dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
-        android:background="#134faf"
+        android:background="@color/blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/rooster" />
@@ -24,7 +24,7 @@
         android:layout_height="250dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="36dp"
-        android:background="#134faf"
+        android:background="@color/blue"
         app:layout_constraintStart_toEndOf="@+id/rooster_imageButton00"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/rooster" />
@@ -35,7 +35,7 @@
         android:layout_height="250dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
-        android:background="#134faf"
+        android:background="@color/blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rooster_imageButton00"
         app:srcCompat="@drawable/rooster" />
@@ -46,7 +46,7 @@
         android:layout_height="250dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="36dp"
-        android:background="#134faf"
+        android:background="@color/blue"
         app:layout_constraintStart_toEndOf="@+id/rooster_imageButton10"
         app:layout_constraintTop_toBottomOf="@+id/rooster_imageButton01"
         app:srcCompat="@drawable/rooster" />
