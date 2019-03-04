@@ -4,17 +4,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/rooster_imageButton00"
+        android:layout_width="190dp"
+        android:layout_height="250dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Surprise"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="36dp"
+        android:background="#134faf"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rooster" />
+
+    <ImageButton
+        android:id="@+id/rooster_imageButton01"
+        android:layout_width="190dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="36dp"
+        android:background="#134faf"
+        app:layout_constraintStart_toEndOf="@+id/rooster_imageButton00"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rooster" />
+
+    <ImageButton
+        android:id="@+id/rooster_imageButton10"
+        android:layout_width="190dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:background="#134faf"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rooster_imageButton00"
+        app:srcCompat="@drawable/rooster" />
+
+    <ImageButton
+        android:id="@+id/rooster_imageButton11"
+        android:layout_width="190dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="36dp"
+        android:background="#134faf"
+        app:layout_constraintStart_toEndOf="@+id/rooster_imageButton10"
+        app:layout_constraintTop_toBottomOf="@+id/rooster_imageButton01"
+        app:srcCompat="@drawable/rooster" />
+
+
 </android.support.constraint.ConstraintLayout>
