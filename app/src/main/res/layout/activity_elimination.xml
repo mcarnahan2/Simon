@@ -5,10 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
->
-
-
+    android:background="#000000">
 
 
     <TextView
@@ -19,8 +16,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:text="Player's Turn:"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:textStyle="bold"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -32,6 +30,7 @@
         android:layout_height="250dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
+        android:background="#f9df18"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/rain" />
@@ -42,6 +41,7 @@
         android:layout_height="250dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="36dp"
+        android:background="#06960f"
         app:layout_constraintStart_toEndOf="@+id/rain_imageButton"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/snow" />
@@ -52,6 +52,7 @@
         android:layout_height="250dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
+        android:background="#134faf"
         app:layout_constraintBottom_toTopOf="@+id/textview_player"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rain_imageButton"
@@ -63,6 +64,7 @@
         android:layout_height="250dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="36dp"
+        android:background="@android:color/holo_red_dark"
         app:layout_constraintBottom_toTopOf="@+id/textview_player"
         app:layout_constraintStart_toEndOf="@+id/thunderstorm_imageButton"
         app:layout_constraintTop_toBottomOf="@+id/snow_imageButton"
