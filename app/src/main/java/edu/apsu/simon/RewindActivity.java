@@ -131,23 +131,20 @@ public class RewindActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void createSequence(){
         random = new Random();
         randomButton = random.nextInt(4)+1;
         sequence.add(randomButton);
         sequence();
-
+        reverseSequence();
     }
 
-    private void sequence(){
+    private void reverseSequence(){
         //uses a for loop to check the sequence in reverse
         for(int i = sequence.size() - 1; i >= 0; i--){
             int seq = sequence.get(i);
 
             if(seq == 1){
-
                 findViewById(R.id.blue_imageButton).setBackgroundColor(Color.BLUE);
             }
             else if(seq == 2){
@@ -160,12 +157,20 @@ public class RewindActivity extends AppCompatActivity {
                 findViewById(R.id.yellow_imageButton).setBackgroundColor(Color.YELLOW);
             }
 
-            Log.i("SEQUENCE", "i is " + i + " sequence is " + seq);
+            Log.i("SEQUENCE", "i is " + i + " Backwards sequence is " + seq);
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void sequence(){
+        for(int i = 0; i < sequence.size(); i++){
+            int seq = sequence.get(i);
+
+            Log.i("SEQUENCE", "====i is " + i + "Sequence is " + seq);
         }
     }
 
