@@ -36,6 +36,7 @@ public class RewindActivity extends AppCompatActivity {
     int greenSampleId;
     int yellowSampleId;
     int redSampleId;
+    int x=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +97,8 @@ public class RewindActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             createSequence();
+            x=0;
+            sequence();
         }
     }
 
@@ -135,44 +138,109 @@ public class RewindActivity extends AppCompatActivity {
         random = new Random();
         randomButton = random.nextInt(4)+1;
         sequence.add(randomButton);
-        sequence();
-        reverseSequence();
-    }
 
-    private void reverseSequence(){
-        //uses a for loop to check the sequence in reverse
-        for(int i = sequence.size() - 1; i >= 0; i--){
+        for (int i=0; i < sequence.size(); i++){
             int seq = sequence.get(i);
-
-            if(seq == 1){
-                findViewById(R.id.blue_imageButton).setBackgroundColor(Color.BLUE);
-            }
-            else if(seq == 2){
-                findViewById(R.id.green_imageButton).setBackgroundColor(Color.GREEN);
-            }
-            else if(seq == 3){
-                findViewById(R.id.red_imageButton).setBackgroundColor(Color.RED);
-            }
-            else if(seq == 4){
-                findViewById(R.id.yellow_imageButton).setBackgroundColor(Color.YELLOW);
-            }
-
-            Log.i("SEQUENCE", "i is " + i + " Backwards sequence is " + seq);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Log.i("COLOR", "Sequence is " + i + "----Value is " + seq);
         }
     }
 
     private void sequence(){
-        for(int i = 0; i < sequence.size(); i++){
-            int seq = sequence.get(i);
 
-            Log.i("SEQUENCE", "====i is " + i + "Sequence is " + seq);
+        if(sequence.get(x) == 1){
+            blueFlashOff();
+            playSound(blueSampleId);
+            blueFlashOn();
+            Log.i("COLOR", "BLUE");
+        } else if(sequence.get(x) == 2){
+            greenFlashOff();
+            playSound(greenSampleId);
+            greenFlashOn();
+            Log.i("COLOR", "GREEN");
+        } else if(sequence.get(x) == 3) {
+            redFlashOff();
+            playSound(redSampleId);
+            redFlashOn();
+            Log.i("COLOR", "RED");
+        } else if(sequence.get(x) == 4) {
+            yellowFlashOff();
+            playSound(yellowSampleId);
+            yellowFlashOn();
+            Log.i("COLOR", "YELLOW");
         }
+
+        x++;
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(x < sequence.size()){
+                    sequence();
+                }
+            }
+        },3000);
+
     }
+
+    private void blueFlashOff(){
+        findViewById(R.id.blue_imageButton).setVisibility(View.INVISIBLE);
+    }
+
+    private void blueFlashOn(){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.blue_imageButton).setVisibility(View.VISIBLE);
+            }
+        },500);
+    }
+
+    private void greenFlashOff(){
+        findViewById(R.id.green_imageButton).setVisibility(View.INVISIBLE);
+    }
+
+    private void greenFlashOn(){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.green_imageButton).setVisibility(View.VISIBLE);
+            }
+        }, 500);
+    }
+
+    private void redFlashOff(){
+        findViewById(R.id.red_imageButton).setVisibility(View.INVISIBLE);
+    }
+
+    private void redFlashOn(){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.red_imageButton).setVisibility(View.VISIBLE);
+            }
+        },500);
+    }
+
+    private void yellowFlashOff(){
+        findViewById(R.id.yellow_imageButton).setVisibility(View.INVISIBLE);
+    }
+
+    private void yellowFlashOn(){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.yellow_imageButton).setVisibility(View.VISIBLE);
+            }
+        }, 500);
+    }
+
+    private void continueSequence(){
+
+    }
+
+        /*uses a for loop to check the sequence in reverse
+        for(int i = sequence.size() - 1; i >= 0; i--)*/
+
 
     private void playSound(int sampleId){
         if(soundsLoaded.contains(sampleId)){
