@@ -97,6 +97,7 @@ public class EliminationActivity extends AppCompatActivity implements View.OnCli
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        startGame();
                     }
                 });
         AlertDialog alertDialog = dialog.create();
@@ -137,7 +138,7 @@ public class EliminationActivity extends AppCompatActivity implements View.OnCli
    to delay when the game starts */
     private void startGame() {
 
-        textview_player.setText("SIMON");
+        textview_player.setText("SIMON TURN");
         player1=false;
 
         Handler handler = new Handler();
