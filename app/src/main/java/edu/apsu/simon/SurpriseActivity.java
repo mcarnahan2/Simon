@@ -30,9 +30,9 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
     private boolean player1;
 
     private int rooster00;
-  /*  private int rooster01;
+   private int rooster01;
     private int rooster10;
-    private int rooster11;*/
+    private int rooster11;
     private int selection;
 
     private SoundPool soundPool;
@@ -72,10 +72,10 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
         });
 
         rooster00 = soundPool.load(this, R.raw.rooster, 1);
-       /* rooster01 = soundPool.load(this, R.raw.rooster, 1);
+        rooster01 = soundPool.load(this, R.raw.rooster, 1);
         rooster10 = soundPool.load(this, R.raw.rooster, 1);
         rooster11 = soundPool.load(this, R.raw.rooster, 1);
-*/
+
         textview_player = findViewById(R.id.textview_player);
 
         rooster_imageButton00 = findViewById(R.id.rooster_imageButton00);
@@ -182,16 +182,22 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
 
     //Button is activated based on the choice from the computer
     private void activateButton(int x) {
-        if (x >= 0 && x <= 3) {
+        if (x == 0) {
             playSound(rooster00);
             buttonColors(rooster_imageButton00, getColor(R.color.blue), getColor(
                     R.color.light_blue));
-            buttonColors(rooster_imageButton01, getColor(R.color.blue), getColor(
-                    R.color.light_blue));
-            buttonColors(rooster_imageButton10, getColor(R.color.blue), getColor(
-                    R.color.light_blue));
-            buttonColors(rooster_imageButton11, getColor(R.color.blue), getColor(
-                    R.color.light_blue));
+        } else if (x == 1) {
+            playSound(rooster01);
+            buttonColors(rooster_imageButton01, getColor(R.color.blue),
+                    R.color.light_blue);
+        } else if (x == 2) {
+            playSound(rooster10);
+            buttonColors(rooster_imageButton10, getColor(R.color.blue),
+                    R.color.light_blue);
+        } else if (x == 3) {
+            playSound(rooster11);
+            buttonColors(rooster_imageButton11, getColor(R.color.blue),
+                    R.color.light_blue);
         }
     }
 
