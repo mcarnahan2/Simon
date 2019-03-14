@@ -140,6 +140,10 @@ public class EliminationActivity extends AppCompatActivity implements View.OnCli
 
         textview_player.setText("SIMON TURN");
         player1=false;
+        rain_imageButton.setEnabled(false);
+        snow_imageButton.setEnabled(false);
+        thunderstorm_imageButton.setEnabled(false);
+        tornado_imageButton.setEnabled(false);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -214,11 +218,11 @@ public class EliminationActivity extends AppCompatActivity implements View.OnCli
         Random random = new Random();
         int key = random.nextInt(4);
         sequence.add(key);
-        showSequence(0);
+        displaySequence(0);
     }
 
     //Displays sequence for the player
-    private void showSequence (final int x){
+    private void displaySequence (final int x){
         if (x<sequence.size()){
 
             activateButton(sequence.get(x));
@@ -226,19 +230,32 @@ public class EliminationActivity extends AppCompatActivity implements View.OnCli
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    showSequence( x +1);
+                    displaySequence( x +1);
                 }
-            }, 800);
+            }, 3000);
         } else {
             textview_player.setText("PLAYER TURN");
             player1=true;
             selection=0;
+            rain_imageButton.setEnabled(true);
+            snow_imageButton.setEnabled(true);
+            thunderstorm_imageButton.setEnabled(true);
+            tornado_imageButton.setEnabled(true);
         }
 
     }
 
     private void compareSequence (int x){
         if(x==sequence.get(selection)) {
+            if (x == 0 && rain_imageButton.isSelected()){
+                Log.i("CORRECT", "i");
+            } else if (x == 1 && snow_imageButton.isSelected()) {
+                Log.i("CORRECT", "i");
+            } else if (x == 2 && thunderstorm_imageButton.isSelected()) {
+                Log.i("CORRECT", "i");
+            } else if (x == 3 && tornado_imageButton.isSelected()) {
+                Log.i("CORRECT", "i");
+            }
             selection++;
         } else {
             gameOver();

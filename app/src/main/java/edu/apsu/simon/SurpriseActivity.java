@@ -118,17 +118,17 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
             if (rooster_imageButton01.isSelected()){
                 buttonColors(rooster_imageButton01, getColor(R.color.blue), getColor(
                         R.color.light_blue));
-                compareSequence(0);
+                compareSequence(1);
             }
             if (rooster_imageButton10.isSelected()){
                 buttonColors(rooster_imageButton10, getColor(R.color.blue), getColor(
                         R.color.light_blue));
-                compareSequence(0);
+                compareSequence(2);
             }
             if (rooster_imageButton11.isSelected()){
                 buttonColors(rooster_imageButton11, getColor(R.color.blue), getColor(
                         R.color.light_blue));
-                compareSequence(0);
+                compareSequence(3);
             }
         }
 
@@ -220,7 +220,7 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
                 public void run() {
                     showSequence( x +1);
                 }
-            }, 800);
+            }, 3000);
         } else {
             textview_player.setText("PLAYER TURN");
             player1=true;
