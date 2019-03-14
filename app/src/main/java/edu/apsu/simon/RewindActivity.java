@@ -33,14 +33,19 @@ public class RewindActivity extends AppCompatActivity {
     private Handler handler;
     private SoundPool soundPool;
     private Set<Integer> soundsLoaded;
-    int blueSampleId;
-    int greenSampleId;
-    int yellowSampleId;
-    int redSampleId;
-    int x=0;
-    int time=5000;
-    int currentScore=0;
-    int highScore=0;
+    private int blueSampleId;
+    private int greenSampleId;
+    private int yellowSampleId;
+    private int redSampleId;
+    private int x=0;
+    private int time=5000;
+    private int currentScore=0;
+    private int highScore=0;
+    private ImageButton blue;
+    private ImageButton green;
+    private ImageButton red;
+    private ImageButton yellow;
+    private Button startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,27 +85,29 @@ public class RewindActivity extends AppCompatActivity {
         yellowSampleId = soundPool.load(this, R.raw.yellow, 1);
         redSampleId = soundPool.load(this, R.raw.red, 1);
 
-        Button b = findViewById(R.id.start_button);
-        b.setOnClickListener(new StartListener());
+        startButton = findViewById(R.id.start_button);
+        startButton.setOnClickListener(new StartListener());
 
-        ImageButton ib = findViewById(R.id.blue_imageButton);
-        ib.setOnClickListener(new BlueListener());
+        blue = findViewById(R.id.blue_imageButton);
+        blue.setOnClickListener(new BlueListener());
 
-        ib = findViewById(R.id.green_imageButton);
-        ib.setOnClickListener(new GreenListener());
+        green = findViewById(R.id.green_imageButton);
+        green.setOnClickListener(new GreenListener());
 
-        ib = findViewById(R.id.yellow_imageButton);
-        ib.setOnClickListener(new YellowListener());
+        red = findViewById(R.id.red_imageButton);
+        red.setOnClickListener(new RedListener());
 
-        ib = findViewById(R.id.red_imageButton);
-        ib.setOnClickListener(new RedListener());
+        yellow = findViewById(R.id.yellow_imageButton);
+        yellow.setOnClickListener(new YellowListener());
     }
 
     //calls the sequence to start the game
     class StartListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            startButton.setEnabled(false);
             continueSequence();
+
         }
     }
 
@@ -172,70 +179,81 @@ public class RewindActivity extends AppCompatActivity {
         }
 
         x++;
+        if(x < sequence.size()){
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
 
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(x < sequence.size()){
-                    sequence();
+                        sequence();
+
                 }
-            }
-        },3000);
+            },3000);
+        } else {
+            blue.setEnabled(true);
+            green.setEnabled(true);
+            red.setEnabled(true);
+            yellow.setEnabled(true);
+        }
     }
 
     private void blueFlashOff(){
-        findViewById(R.id.blue_imageButton).setVisibility(View.INVISIBLE);
+       blue.setVisibility(View.INVISIBLE);
     }
 
     private void blueFlashOn(){
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                findViewById(R.id.blue_imageButton).setVisibility(View.VISIBLE);
+                blue.setVisibility(View.VISIBLE);
             }
         },500);
     }
 
     private void greenFlashOff(){
-        findViewById(R.id.green_imageButton).setVisibility(View.INVISIBLE);
+        green.setVisibility(View.INVISIBLE);
     }
 
     private void greenFlashOn(){
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                findViewById(R.id.green_imageButton).setVisibility(View.VISIBLE);
+                green.setVisibility(View.VISIBLE);
             }
         }, 500);
     }
 
     private void redFlashOff(){
-        findViewById(R.id.red_imageButton).setVisibility(View.INVISIBLE);
+        red.setVisibility(View.INVISIBLE);
     }
 
     private void redFlashOn(){
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                findViewById(R.id.red_imageButton).setVisibility(View.VISIBLE);
+                red.setVisibility(View.VISIBLE);
             }
         },500);
     }
 
     private void yellowFlashOff(){
-        findViewById(R.id.yellow_imageButton).setVisibility(View.INVISIBLE);
+        yellow.setVisibility(View.INVISIBLE);
     }
 
     private void yellowFlashOn(){
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                findViewById(R.id.yellow_imageButton).setVisibility(View.VISIBLE);
+                yellow.setVisibility(View.VISIBLE);
             }
         }, 500);
     }
 
     private void continueSequence(){
+        blue.setEnabled(false);
+        green.setEnabled(false);
+        red.setEnabled(false);
+        yellow.setEnabled(false);
+
         TextView hs = findViewById(R.id.high_score_textView);
         TextView cs = findViewById(R.id.current_score_textView);
 
@@ -308,5 +326,6 @@ public class RewindActivity extends AppCompatActivity {
         alertDialog.show();
 
         sequence.clear();
+        startButton.setEnabled(true);
     }
 }
