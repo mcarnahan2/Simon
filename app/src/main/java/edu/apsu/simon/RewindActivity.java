@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +47,7 @@ public class RewindActivity extends AppCompatActivity {
     private ImageButton red;
     private ImageButton yellow;
     private Button startButton;
+    private Button aboutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +87,14 @@ public class RewindActivity extends AppCompatActivity {
         yellowSampleId = soundPool.load(this, R.raw.yellow, 1);
         redSampleId = soundPool.load(this, R.raw.red, 1);
 
+        Button restartButton = findViewById(R.id.restart_button);
+        restartButton.setOnClickListener(new RestartListener());
+
         startButton = findViewById(R.id.start_button);
         startButton.setOnClickListener(new StartListener());
+
+        aboutButton = findViewById(R.id.about_button);
+        aboutButton.setOnClickListener(new AboutListener());
 
         blue = findViewById(R.id.blue_imageButton);
         blue.setOnClickListener(new BlueListener());
@@ -106,8 +114,35 @@ public class RewindActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             startButton.setEnabled(false);
+            aboutButton.setEnabled(false);
             continueSequence();
 
+        }
+    }
+
+    class RestartListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            //add alert message
+            continueSequence();
+        }
+    }
+
+    class AboutListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            String message = "<hmtl>" +
+                    "<h2>About Game</h2>" +
+                    "<p>This game is a variation of the game Simon.  The game will flash a button and play a sound.  The object of this game is to enter the sequence in reverse.  If you get the sequence correctly, " +
+                    "you will keep advancing until you miss a button.</p>" +
+                    "</html>";
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+            builder.setMessage(Html.fromHtml(message));
+            builder.setPositiveButton("OK", null);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 
@@ -283,14 +318,6 @@ public class RewindActivity extends AppCompatActivity {
                 }
             }
         }, time);
-
-        /*handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }, time);*/
-
     }
 
     private boolean sequenceChecker(){
