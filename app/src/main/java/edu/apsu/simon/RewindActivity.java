@@ -39,6 +39,7 @@ public class RewindActivity extends AppCompatActivity {
     private int yellowSampleId;
     private int redSampleId;
     private int x=0;
+    private int y=0;
     private int time=5000;
     private int currentScore=0;
     private int highScore=0;
@@ -224,6 +225,7 @@ public class RewindActivity extends AppCompatActivity {
                 }
             },3000);
         } else {
+            x = 0;
             blue.setEnabled(true);
             green.setEnabled(true);
             red.setEnabled(true);
@@ -321,22 +323,34 @@ public class RewindActivity extends AppCompatActivity {
     }
 
     private boolean sequenceChecker(){
-        //uses a for loop to check the sequence in reverse
-        for(int i = sequence.size() - 1; i >= 0; i--){
-            int seq = sequence.get(i);
+        int seq = sequence.get(y);
 
-            if(seq == 1 && blueClicked){
-                Log.i("PATTERN", "Correct");
-            } else if(seq == 2 && greenClicked) {
-                Log.i("PATTERN", "Correct");
-            } else if(seq == 3 && redClicked) {
-                Log.i("PATTERN", "Correct");
-            } else if(seq == 4 && yellowClicked) {
-                Log.i("PATTERN", "Correct");
-            } else {
-                return false;
-            }
+        if(seq == 1 && blueClicked){
+            Log.i("PATTERN", "Correct");
+        } else if(seq == 2 && greenClicked) {
+            Log.i("PATTERN", "Correct");
+        } else if(seq == 3 && redClicked) {
+            Log.i("PATTERN", "Correct");
+        } else if(seq == 4 && yellowClicked) {
+            Log.i("PATTERN", "Correct");
+        } else {
+            return false;
         }
+
+        y++;
+        if(y < sequence.size()){
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.i("OUT", "Y is it out of bounds" + y);
+                    sequenceChecker();
+
+                }
+            },3000);
+        } else{
+            y = 0;
+        }
+
         return true;
     }
 
