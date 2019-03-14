@@ -1,6 +1,7 @@
 package edu.apsu.simon;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
@@ -37,6 +38,9 @@ public class RewindActivity extends AppCompatActivity {
     int yellowSampleId;
     int redSampleId;
     int x=0;
+    int time=5000;
+    int currentScore=0;
+    int highScore=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +100,7 @@ public class RewindActivity extends AppCompatActivity {
     class StartListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            createSequence();
-            x=0;
-            sequence();
+            continueSequence();
         }
     }
 
@@ -179,7 +181,6 @@ public class RewindActivity extends AppCompatActivity {
                 }
             }
         },3000);
-
     }
 
     private void blueFlashOff(){
@@ -235,12 +236,64 @@ public class RewindActivity extends AppCompatActivity {
     }
 
     private void continueSequence(){
+        TextView hs = findViewById(R.id.high_score_textView);
+        TextView cs = findViewById(R.id.current_score_textView);
+
+        String csString = Integer.toString(currentScore);
+        String hsString = Integer.toString(highScore);
+
+        cs.setText(csString);
+        hs.setText(hsString);
+
+        createSequence();
+        x=0;
+        sequence();
+        time += 1000;
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sequenceChecker();
+                if(sequenceChecker()){
+                    currentScore+=1;
+                    if(currentScore > highScore){
+                        highScore=currentScore;
+                    }
+                    continueSequence();
+                } else {
+                    gameOver();
+                }
+            }
+        }, time);
+
+        /*handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, time);*/
 
     }
 
-        /*uses a for loop to check the sequence in reverse
-        for(int i = sequence.size() - 1; i >= 0; i--)*/
+    private boolean sequenceChecker(){
+        //uses a for loop to check the sequence in reverse
+        for(int i = sequence.size() - 1; i >= 0; i--){
+            int seq = sequence.get(i);
 
+            if(seq == 1 && blueClicked){
+                Log.i("PATTERN", "Correct");
+            } else if(seq == 2 && greenClicked) {
+                Log.i("PATTERN", "Correct");
+            } else if(seq == 3 && redClicked) {
+                Log.i("PATTERN", "Correct");
+            } else if(seq == 4 && yellowClicked) {
+                Log.i("PATTERN", "Correct");
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
 
     private void playSound(int sampleId){
         if(soundsLoaded.contains(sampleId)){
