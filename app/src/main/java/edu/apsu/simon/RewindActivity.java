@@ -219,19 +219,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
 
     private void sequence(final int x){
         if(x<sequence.size()) {
-            if (sequence.get(x) == 1) {
-                sequenceActivity(blue);
-                //Log.i("COLOR", "BLUE");
-            } else if (sequence.get(x) == 2) {
-                sequenceActivity(green);
-                //Log.i("COLOR", "GREEN");
-            } else if (sequence.get(x) == 3) {
-                sequenceActivity(red);
-                //Log.i("COLOR", "RED");
-            } else if (sequence.get(x) == 4) {
-                sequenceActivity(yellow);
-                //Log.i("COLOR", "YELLOW");
-            }
+            activateButton(sequence.get(x));
 
             handler.postDelayed(new Runnable() {
                 @Override
@@ -397,6 +385,16 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     private void activateButton(int x){
         if(x == 1){
             playSound(blueSampleId);
+            sequenceActivity(blue);
+        } else if(x == 2){
+            playSound(greenSampleId);
+            sequenceActivity(green);
+        } else if(x == 3){
+            playSound(redSampleId);
+            sequenceActivity(red);
+        } else if(x == 4){
+            playSound(yellowSampleId);
+            sequenceActivity(yellow);
         }
     }
 
