@@ -58,8 +58,9 @@ public class MainActivity extends AppCompatActivity {
                     "<p><b>Images:</b> Open Clip Art </p>" +
                     "<p><b>Creator:</b> Mariah Carnahan & Keenya Gilchrist </p>" +
                     "<p><b>Links:</b> " +
-                    "<a href= 'http://soundbible.com/'> </a>" +
-                    "<a href= 'https://openclipart.org'> </a> </p>" +
+                    "<a href= 'http://soundbible.com/'>" +
+                    "</a>" +
+                    "<a href= 'https://openclipart.org/'></a></p>" +
                     "<p><b>License:</b> CC-BY 3.0 </p>" +
                     "</html>";
 
