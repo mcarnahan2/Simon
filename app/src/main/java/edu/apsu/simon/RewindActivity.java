@@ -16,21 +16,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.Set;
 
 import static android.view.View.VISIBLE;
@@ -47,6 +35,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     private int greenSampleId;
     private int yellowSampleId;
     private int redSampleId;
+    private int loserId;
     private int currentScore=0;
     private int highScore;
     private int selection;
@@ -101,6 +90,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         greenSampleId = soundPool.load(this, R.raw.green, 1);
         yellowSampleId = soundPool.load(this, R.raw.yellow, 1);
         redSampleId = soundPool.load(this, R.raw.red, 1);
+        loserId =soundPool.load(this, R.raw.looser, 1);
 
         context = getApplicationContext();
         SharedPreferences prefs = this.getSharedPreferences("GET_HIGH_SCORE_REWIND", getApplicationContext().MODE_PRIVATE);
@@ -201,30 +191,11 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    /*private void writeDate(String highScore,){
-        try {
-            FileOutputStream fos = openFileOutput(DATA_FILENAME, Context.MODE_PRIVATE);
-            OutputStreamWriter osw = new OutputStreamWriter(fos);
-            BufferedWriter bw = new BufferedWriter(osw);
-            PrintWriter pw = new PrintWriter(bw);
-
-            pw.println(highScore);
-
-            pw.close();
-        } catch (FileNotFoundException e) {
-            Log.e("WRITE_ERR", "Cannot save data: " + e.getMessage());
-            e.printStackTrace();
-            Toast.makeText(this, "Error saving data", Toast.LENGTH_SHORT).show();
-        }
-    }*/
-
     private void createSequence(){
         random = new Random();
         randomButton = random.nextInt(4)+1;
         sequence.add(randomButton);
-        Log.i("SELECTION", "Selection in sequence before reset.  Value is " + selection);
         selection=sequence.size();
-        Log.i("SELECTION", "Selection in sequence after reset.  Value is " + selection);
         sequence(0);
     }
 
@@ -239,9 +210,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
                 }
             },3000);
         } else {
-            /*Log.i("SELECTION", "Selection in sequence before reset.  Value is " + selection);
-            selection=sequence.size();
-            Log.i("SELECTION", "Selection in sequence after reset.  Value is " + selection);*/
             playerText="Player Turn";
             playerTv.setText(playerText);
             player=true;
@@ -296,13 +264,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
             editor.commit();
         }
 
-        /*try{
-            BufferedReader reader = new BufferedReader((new FileReader(file)));
-            String line =
-        } catch (NumberFormatException e){
-            //ignore invalid score
-        }*/
-
         String csString = Integer.toString(currentScore);
         String hsString = Integer.toString(highScore);
 
@@ -319,9 +280,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void sequenceChecker(int x){
-        Log.i("SELECTION", "Selection in sc.  Value is " + selection);
         if(x==sequence.get(selection-1)){
-            Log.i("SELECTION", "Selection in if statement.  Value is " + selection);
             if(x==1 && blue.isSelected()){
                 Log.i("CORRECT", "i");
             } else if(x==2 && green.isSelected()){
@@ -332,21 +291,15 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
                 Log.i("CORRECT", "i");
             }
 
-            Log.i("SELECTION", "Selection in before increment.  Value is " + selection);
             selection--;
-            Log.i("SELECTION", "Selection after increment.  Value is " + selection);
         } else{
             gameOver();
         }
-        Log.i("SELECTION", "Selection in sc before second if.  Value is " + selection);
+
         if(selection==0){
-            Log.i("SELECTION", "Selection in second if before cs.  Value is " + selection);
             continueSequence();
-            Log.i("SELECTION", "Selection in seconde if after cs.  Value is " + selection);
         } else{
-            Log.i("SELECTION", "Selection in else, before.  Value is " + selection);
             selection=selection;
-            Log.i("SELECTION", "Selection in else, after.  Value is " + selection);
         }
     }
 
@@ -373,11 +326,13 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void gameOver(){
+        playSound(loserId);
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage("Game Over");
         AlertDialog alertDialog = dialog.create();
         alertDialog.show();
         startButton.setEnabled(true);
+        aboutButton.setEnabled(true);
         currentScore=0;
         String csText = Integer.toString(currentScore);
         cs.setText(csText);
