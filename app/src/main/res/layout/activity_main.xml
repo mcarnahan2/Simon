@@ -26,16 +26,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/elimination_button"
+        android:id="@+id/classic_button"
         android:layout_width="145dp"
         android:layout_height="74dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="133dp"
         android:background="@color/red"
         android:fontFamily="serif-monospace"
-        android:text="Elimination"
+        android:text="Classic"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -43,63 +45,50 @@
         android:id="@+id/rewind_button"
         android:layout_width="145dp"
         android:layout_height="74dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="133dp"
         android:background="@color/blue"
         android:fontFamily="serif-monospace"
         android:text="Rewind"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/classic_button" />
 
     <Button
         android:id="@+id/surprise_button"
         android:layout_width="145dp"
         android:layout_height="74dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="133dp"
         android:background="@color/yellow"
         android:fontFamily="serif-monospace"
         android:text="Surprise"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/about_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/elimination_button" />
-
-    <Button
-        android:id="@+id/classic_button"
-        android:layout_width="145dp"
-        android:layout_height="74dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/green"
-        android:fontFamily="serif-monospace"
-        android:text="Classic"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/about_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rewind_button" />
+
 
     <Button
         android:id="@+id/about_button"
         android:layout_width="145dp"
         android:layout_height="74dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="132dp"
-        android:background="#ffffff"
+        android:layout_marginStart="133dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="133dp"
+        android:background="@color/green"
         android:fontFamily="serif-monospace"
         android:text="About"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/surprise_button" />
 
 
 </android.support.constraint.ConstraintLayout>
