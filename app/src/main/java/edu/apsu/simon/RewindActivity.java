@@ -42,10 +42,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     private int greenSampleId;
     private int yellowSampleId;
     private int redSampleId;
-    private int x=0;
-    private int y=0;
-    private int index=0;
-    private int time=5000;
     private int currentScore=0;
     private int highScore=0;
     private int selection;
@@ -116,6 +112,8 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
 
         yellow = findViewById(R.id.yellow_imageButton);
         yellow.setOnClickListener(this);
+
+        playerTv=findViewById(R.id.turn_textView);
     }
 
     //calls the sequence to start the game
@@ -162,13 +160,13 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
                 sequenceActivity(blue);
                 sequenceChecker(1);
             } else if(v.getId() == green.getId()){
-                sequenceActivity(blue);
+                sequenceActivity(green);
                 sequenceChecker(2);
             } else if(v.getId() == red.getId()){
-                sequenceActivity(blue);
+                sequenceActivity(red);
                 sequenceChecker(3);
             } else if(v.getId() == yellow.getId()){
-                sequenceActivity(blue);
+                sequenceActivity(yellow);
                 sequenceChecker(4);
             }
 
@@ -415,7 +413,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         alertDialog.show();
 
         sequence.clear();
-        x = 0;
         startButton.setEnabled(true);
     }
 }
