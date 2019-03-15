@@ -120,6 +120,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     class StartListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            sequence.clear();
             //startButton.setEnabled(false);
             aboutButton.setEnabled(false);
             continueSequence();
@@ -411,8 +412,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         dialog.setMessage("Game Over");
         AlertDialog alertDialog = dialog.create();
         alertDialog.show();
-
-        sequence.clear();
         startButton.setEnabled(true);
     }
 }
