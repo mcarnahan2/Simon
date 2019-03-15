@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class RewindActivity extends AppCompatActivity {
+public class RewindActivity extends AppCompatActivity implements View.OnClickListener{
     private ArrayList<Integer> sequence;
     private Random random;
     private int randomButton;
@@ -31,6 +31,8 @@ public class RewindActivity extends AppCompatActivity {
     private boolean greenClicked;
     private boolean yellowClicked;
     private boolean redClicked;
+    private boolean buttonClicked;
+    private boolean player;
     private Handler handler;
     private SoundPool soundPool;
     private Set<Integer> soundsLoaded;
@@ -40,15 +42,18 @@ public class RewindActivity extends AppCompatActivity {
     private int redSampleId;
     private int x=0;
     private int y=0;
+    private int index=0;
     private int time=5000;
     private int currentScore=0;
     private int highScore=0;
+    private int selection;
     private ImageButton blue;
     private ImageButton green;
     private ImageButton red;
     private ImageButton yellow;
     private Button startButton;
     private Button aboutButton;
+    private TextView playerTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +119,7 @@ public class RewindActivity extends AppCompatActivity {
     class StartListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            startButton.setEnabled(false);
+            //startButton.setEnabled(false);
             aboutButton.setEnabled(false);
             continueSequence();
 
@@ -147,11 +152,28 @@ public class RewindActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View v){
+        if(player){
+            if(v.getId() == blue.getId()){
+                sequenceChecker(1);
+            } else if(v.getId() == green.getId()){
+                sequenceChecker(2);
+            } else if(v.getId() == red.getId()){
+                sequenceChecker(3);
+            } else if(v.getId() == yellow.getId()){
+                sequenceChecker(4);
+            }
+
+        }
+    }
+
     class BlueListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             blueClicked = true;
             playSound(blueSampleId);
+            y=1;
         }
     }
 
@@ -160,6 +182,7 @@ public class RewindActivity extends AppCompatActivity {
         public void onClick(View view) {
             greenClicked = true;
             playSound(greenSampleId);
+            y=2;
         }
     }
 
@@ -168,6 +191,7 @@ public class RewindActivity extends AppCompatActivity {
         public void onClick(View view) {
             yellowClicked = true;
             playSound(yellowSampleId);
+            y=4;
         }
     }
 
@@ -176,6 +200,7 @@ public class RewindActivity extends AppCompatActivity {
         public void onClick(View view) {
             redClicked = true;
             playSound(redSampleId);
+            y=3;
         }
     }
 
@@ -183,53 +208,46 @@ public class RewindActivity extends AppCompatActivity {
         random = new Random();
         randomButton = random.nextInt(4)+1;
         sequence.add(randomButton);
-
-        for (int i=0; i < sequence.size(); i++){
-            int seq = sequence.get(i);
-            Log.i("COLOR", "Sequence is " + i + "----Value is " + seq);
-        }
     }
 
-    private void sequence(){
+    private void sequence(final int x){
+        if(x<sequence.size()) {
+            if (sequence.get(x) == 1) {
+                blueFlashOff();
+                playSound(blueSampleId);
+                blueFlashOn();
+                //Log.i("COLOR", "BLUE");
+            } else if (sequence.get(x) == 2) {
+                greenFlashOff();
+                playSound(greenSampleId);
+                greenFlashOn();
+                //Log.i("COLOR", "GREEN");
+            } else if (sequence.get(x) == 3) {
+                redFlashOff();
+                playSound(redSampleId);
+                redFlashOn();
+                //Log.i("COLOR", "RED");
+            } else if (sequence.get(x) == 4) {
+                yellowFlashOff();
+                playSound(yellowSampleId);
+                yellowFlashOn();
+                //Log.i("COLOR", "YELLOW");
+            }
 
-        if(sequence.get(x) == 1){
-            blueFlashOff();
-            playSound(blueSampleId);
-            blueFlashOn();
-            Log.i("COLOR", "BLUE");
-        } else if(sequence.get(x) == 2){
-            greenFlashOff();
-            playSound(greenSampleId);
-            greenFlashOn();
-            Log.i("COLOR", "GREEN");
-        } else if(sequence.get(x) == 3) {
-            redFlashOff();
-            playSound(redSampleId);
-            redFlashOn();
-            Log.i("COLOR", "RED");
-        } else if(sequence.get(x) == 4) {
-            yellowFlashOff();
-            playSound(yellowSampleId);
-            yellowFlashOn();
-            Log.i("COLOR", "YELLOW");
-        }
-
-        x++;
-        if(x < sequence.size()){
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-
-                        sequence();
-
+                    sequence(x+1);
                 }
             },3000);
         } else {
-            x = 0;
+            selection=0;
+            player=true;
             blue.setEnabled(true);
             green.setEnabled(true);
             red.setEnabled(true);
             yellow.setEnabled(true);
+            player=true;
         }
     }
 
@@ -286,6 +304,7 @@ public class RewindActivity extends AppCompatActivity {
     }
 
     private void continueSequence(){
+        player = false;
         blue.setEnabled(false);
         green.setEnabled(false);
         red.setEnabled(false);
@@ -300,12 +319,16 @@ public class RewindActivity extends AppCompatActivity {
         cs.setText(csString);
         hs.setText(hsString);
 
-        createSequence();
-        x=0;
-        sequence();
-        time += 1000;
-
         handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                createSequence();
+            }
+        }, 3000);
+
+        //time += 1000;
+
+        /*handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 sequenceChecker();
@@ -319,39 +342,33 @@ public class RewindActivity extends AppCompatActivity {
                     gameOver();
                 }
             }
-        }, time);
+        }, time);*/
     }
 
-    private boolean sequenceChecker(){
-        int seq = sequence.get(y);
+    private void sequenceChecker(int x){
+        if(x==sequence.get(selection)){
+            if(x==1 && blue.isSelected()){
+                Log.i("CORRECT", "i");
+            } else if(x==2 && green.isSelected()){
+                Log.i("CORRECT", "i");
+            } else if(x==3 && red.isSelected()){
+                Log.i("CORRECT", "i");
+            } else if(x==4 && yellow.isSelected()){
+                Log.i("CORRECT", "i");
+            }
 
-        if(seq == 1 && blueClicked){
-            Log.i("PATTERN", "Correct");
-        } else if(seq == 2 && greenClicked) {
-            Log.i("PATTERN", "Correct");
-        } else if(seq == 3 && redClicked) {
-            Log.i("PATTERN", "Correct");
-        } else if(seq == 4 && yellowClicked) {
-            Log.i("PATTERN", "Correct");
-        } else {
-            return false;
-        }
-
-        y++;
-        if(y < sequence.size()){
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Log.i("OUT", "Y is it out of bounds" + y);
-                    sequenceChecker();
-
-                }
-            },3000);
+            selection++;
         } else{
-            y = 0;
+            Log.i("GAME", "Game over");
         }
 
-        return true;
+        if(selection>=sequence.size()){
+            continueSequence();
+        }
+    }
+
+    private void sequencePlay(final ImageButton button){
+
     }
 
     private void playSound(int sampleId){
@@ -367,6 +384,7 @@ public class RewindActivity extends AppCompatActivity {
         alertDialog.show();
 
         sequence.clear();
+        x = 0;
         startButton.setEnabled(true);
     }
 }
