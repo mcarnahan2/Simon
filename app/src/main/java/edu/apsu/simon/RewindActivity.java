@@ -105,16 +105,16 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         aboutButton.setOnClickListener(new AboutListener());
 
         blue = findViewById(R.id.blue_imageButton);
-        blue.setOnClickListener(new BlueListener());
+        blue.setOnClickListener(this);
 
         green = findViewById(R.id.green_imageButton);
-        green.setOnClickListener(new GreenListener());
+        green.setOnClickListener(this);
 
         red = findViewById(R.id.red_imageButton);
-        red.setOnClickListener(new RedListener());
+        red.setOnClickListener(this);
 
         yellow = findViewById(R.id.yellow_imageButton);
-        yellow.setOnClickListener(new YellowListener());
+        yellow.setOnClickListener(this);
     }
 
     //calls the sequence to start the game
@@ -174,7 +174,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    class BlueListener implements View.OnClickListener {
+    /*class BlueListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             blueClicked = true;
@@ -208,7 +208,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
             playSound(redSampleId);
             y=3;
         }
-    }
+    }*/
 
     private void createSequence(){
         random = new Random();
