@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SwipeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ClassicActivity.class);
                 startActivity(intent);
             }
         });
