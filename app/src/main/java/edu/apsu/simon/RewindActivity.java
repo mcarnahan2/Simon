@@ -46,6 +46,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     private int greenSampleId;
     private int yellowSampleId;
     private int redSampleId;
+    private int looserId;
     private int currentScore=0;
     private int highScore=0;
     private int selection;
@@ -99,6 +100,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         greenSampleId = soundPool.load(this, R.raw.green, 1);
         yellowSampleId = soundPool.load(this, R.raw.yellow, 1);
         redSampleId = soundPool.load(this, R.raw.red, 1);
+        looserId = soundPool.load(this, R.raw.looser, 1);
 
         hs = findViewById(R.id.high_score_textView);
         //hs.setText(readData());
@@ -359,6 +361,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void gameOver(){
+        playSound(looserId);
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage("Game Over");
         AlertDialog alertDialog = dialog.create();
