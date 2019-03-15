@@ -103,12 +103,12 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         redSampleId = soundPool.load(this, R.raw.red, 1);
 
         context = getApplicationContext();
-        SharedPreferences prefs = this.getSharedPreferences("GET_HIGH_SCORE", getApplicationContext().MODE_PRIVATE);
-        highScore = prefs.getInt("HIGH_SCORE", 0);
+        SharedPreferences prefs = this.getSharedPreferences("GET_HIGH_SCORE_REWIND", getApplicationContext().MODE_PRIVATE);
+        highScore = prefs.getInt("HIGH_SCORE_REWIND", 0);
 
-        SharedPreferences hScore= getSharedPreferences("GET_HIGH_SCORE", Context.MODE_PRIVATE);
+        SharedPreferences hScore= getSharedPreferences("GET_HIGH_SCORE_REWIND", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = hScore.edit();
-        editor.putInt("HIGH_SCORE", highScore);
+        editor.putInt("HIGH_SCORE_REWIND", highScore);
         editor.commit();
 
         hs = findViewById(R.id.high_score_textView);
@@ -290,9 +290,9 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
 
         if(currentScore>highScore){
             highScore=currentScore;
-            SharedPreferences hs= getSharedPreferences("GET_HIGH_SCORE", Context.MODE_PRIVATE);
+            SharedPreferences hs= getSharedPreferences("GET_HIGH_SCORE_REWIND", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = hs.edit();
-            editor.putInt("HIGH_SCORE", highScore);
+            editor.putInt("HIGH_SCORE_REWIND", highScore);
             editor.commit();
         }
 
