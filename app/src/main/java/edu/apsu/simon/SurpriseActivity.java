@@ -1,6 +1,8 @@
 package edu.apsu.simon;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -26,11 +28,14 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
     private ImageButton rooster_imageButton10;
     private ImageButton rooster_imageButton11;
 
+    private TextView hs;
+    private TextView cs;
+
     private TextView textview_player;
     private boolean player1;
 
     private int rooster00;
-   private int rooster01;
+    private int rooster01;
     private int rooster10;
     private int rooster11;
     private int looserId;
@@ -39,6 +44,11 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
     private SoundPool soundPool;
 
     private Set<Integer> soundsLoaded;
+
+    private Context context;
+
+    private int highScore;
+    private int currentScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +87,22 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
         rooster10 = soundPool.load(this, R.raw.rooster, 1);
         rooster11 = soundPool.load(this, R.raw.rooster, 1);
         looserId = soundPool.load(this, R.raw.looser, 1);
+
+        context = getApplicationContext();
+        SharedPreferences prefs = this.getSharedPreferences("GET_HIGH_SCORE_SURPRISE", getApplicationContext().MODE_PRIVATE);
+        highScore = prefs.getInt("HIGH_SCORE_SURPRISE", 0);
+
+        SharedPreferences hScore= getSharedPreferences("GET_HIGH_SCORE_SURPRISE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = hScore.edit();
+        editor.putInt("HIGH_SCORE_SURPRISE", highScore);
+        editor.commit();
+
+        hs = findViewById(R.id.high_score_textView);
+
+        String hsString = Integer.toString(highScore);
+
+        hs.setText(hsString);
+        cs = findViewById(R.id.current_score_textView);
 
         textview_player = findViewById(R.id.textview_player);
 
@@ -143,6 +169,20 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
         rooster_imageButton10.setEnabled(false);
         rooster_imageButton11.setEnabled(false);
 
+        if(currentScore>highScore){
+            highScore=currentScore;
+            SharedPreferences hs= getSharedPreferences("GET_HIGH_SCORE_SURPRISE", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = hs.edit();
+            editor.putInt("HIGH_SCORE_SURPRISE", highScore);
+            editor.commit();
+        }
+
+        String csString = Integer.toString(currentScore);
+        String hsString = Integer.toString(highScore);
+
+        cs.setText(csString);
+        hs.setText(hsString);
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -150,6 +190,7 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
                 sequence();
             }
         }, 3000);
+        currentScore++;
     }
 
     private void gameOver() {
