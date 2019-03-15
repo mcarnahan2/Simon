@@ -1,11 +1,9 @@
 package edu.apsu.simon;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
+
+import android.content.Context;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -18,9 +16,19 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 
 import static android.view.View.VISIBLE;
@@ -48,7 +56,10 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     private Button aboutButton;
     private Button quitButton;
     private TextView playerTv;
+    private TextView cs;
+    TextView hs;
     private String playerText="";
+    private File file = new File("highscoreRewind.txt");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +99,10 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         yellowSampleId = soundPool.load(this, R.raw.yellow, 1);
         redSampleId = soundPool.load(this, R.raw.red, 1);
 
+        hs = findViewById(R.id.high_score_textView);
+        //hs.setText(readData());
+        cs = findViewById(R.id.current_score_textView);
+
         startButton = findViewById(R.id.start_button);
         startButton.setOnClickListener(new StartListener());
 
@@ -111,6 +126,20 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
 
         playerTv=findViewById(R.id.turn_textView);
     }
+
+    /*private Integer readData() {
+        try{
+              FileInputStream fis = openFileInput(DATA_FILENAME);
+              Scanner scanner = new Scanner(fis);
+              while(scanner.hasNext()) {
+                  String highScore = scanner.next();
+              }
+          } catch (FileNotFoundException e){
+              //Cannot have a file
+          }
+
+          return highScore;
+    };*/
 
     //calls the sequence to start the game
     class StartListener implements View.OnClickListener {
@@ -171,6 +200,23 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
 
         }
     }
+
+    /*private void writeDate(){
+        try {
+            FileOutputStream fos = openFileOutput(DATA_FILENAME, Context.MODE_PRIVATE);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            BufferedWriter bw = new BufferedWriter(osw);
+            PrintWriter pw = new PrintWriter(bw);
+
+            pw.println(highScore);
+
+            pw.close();
+        } catch (FileNotFoundException e) {
+            Log.e("WRITE_ERR", "Cannot save data: " + e.getMessage());
+            e.printStackTrace();
+            Toast.makeText(this, "Error saving data", Toast.LENGTH_SHORT).show();
+        }
+    }*/
 
     private void createSequence(){
         random = new Random();
@@ -236,8 +282,17 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         startButton.setEnabled(false);
         aboutButton.setEnabled(false);
 
-        TextView hs = findViewById(R.id.high_score_textView);
-        TextView cs = findViewById(R.id.current_score_textView);
+
+        if(currentScore>highScore){
+            highScore=currentScore;
+        }
+
+        /*try{
+            BufferedReader reader = new BufferedReader((new FileReader(file)));
+            String line =
+        } catch (NumberFormatException e){
+            //ignore invalid score
+        }*/
 
         String csString = Integer.toString(currentScore);
         String hsString = Integer.toString(highScore);
@@ -251,6 +306,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
                 createSequence();
             }
         }, 3000);
+        currentScore++;
     }
 
     private void sequenceChecker(int x){
@@ -303,6 +359,9 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         AlertDialog alertDialog = dialog.create();
         alertDialog.show();
         startButton.setEnabled(true);
+        currentScore=0;
+        String csText = Integer.toString(currentScore);
+        cs.setText(csText);
     }
 
     @Override
