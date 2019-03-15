@@ -110,22 +110,19 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
         //startGame();
 
         if (player1) {
-            if (rooster_imageButton00.isClickable()){
+            if (v.getId() == rooster_imageButton00.getId()){
                 buttonColors(rooster_imageButton00, getColor(R.color.blue), getColor(
                         R.color.light_blue));
                 compareSequence(0);
-            }
-            if (rooster_imageButton01.isClickable()){
+            } else if (v.getId() == rooster_imageButton01.getId()){
                 buttonColors(rooster_imageButton01, getColor(R.color.blue), getColor(
                         R.color.light_blue));
                 compareSequence(1);
-            }
-            if (rooster_imageButton10.isClickable()){
+            } else if (v.getId() == rooster_imageButton10.getId()){
                 buttonColors(rooster_imageButton10, getColor(R.color.blue), getColor(
                         R.color.light_blue));
                 compareSequence(2);
-            }
-            if (rooster_imageButton11.isClickable()){
+            } else if (v.getId() == rooster_imageButton11.getId()){
                 buttonColors(rooster_imageButton11, getColor(R.color.blue), getColor(
                         R.color.light_blue));
                 compareSequence(3);
@@ -140,6 +137,10 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
 
         textview_player.setText("SIMON TURN");
         player1=false;
+        rooster_imageButton00.setEnabled(false);
+        rooster_imageButton01.setEnabled(false);
+        rooster_imageButton10.setEnabled(false);
+        rooster_imageButton11.setEnabled(false);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -147,7 +148,7 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
             public void run() {
                 sequence();
             }
-        }, 2000);
+        }, 3000);
     }
 
     private void gameOver() {
@@ -220,8 +221,12 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
                 public void run() {
                     showSequence( x +1);
                 }
-            }, 3000);
+            }, 800);
         } else {
+            rooster_imageButton00.setEnabled(true);
+            rooster_imageButton01.setEnabled(true);
+            rooster_imageButton10.setEnabled(true);
+            rooster_imageButton11.setEnabled(true);
             textview_player.setText("PLAYER TURN");
             player1=true;
             selection=0;
@@ -231,6 +236,15 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
 
     private void compareSequence (int x){
         if(x==sequence.get(selection)) {
+            if (x == 0 && rooster_imageButton00.isSelected()){
+                Log.i("CORRECT", "i");
+            } else if (x == 1 && rooster_imageButton01.isSelected()) {
+                Log.i("CORRECT", "i");
+            } else if (x == 2 && rooster_imageButton10.isSelected()) {
+                Log.i("CORRECT", "i");
+            } else if (x == 3 && rooster_imageButton11.isSelected()) {
+                Log.i("CORRECT", "i");
+            }
             selection++;
         } else {
             gameOver();

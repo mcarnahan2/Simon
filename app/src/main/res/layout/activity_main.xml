@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     tools:context=".MainActivity">
 
-    <LinearLayout
+
+
+    <!-- <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
@@ -17,38 +20,80 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"> -->
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Simon"
-            android:textSize="40sp" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="serif-monospace"
+        android:gravity="center_horizontal"
+        android:text="Simon Says!"
+        android:textColor="#ffffff"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/elimination_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Play Elimination" />
+    <Button
+        android:id="@+id/elimination_button"
+        android:layout_width="145dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="68dp"
+        android:background="@color/red"
+        android:fontFamily="serif-monospace"
+        android:text="Elimination"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <Button
-            android:id="@+id/rewind_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Play Rewind" />
+    <Button
+        android:id="@+id/rewind_button"
+        android:layout_width="145dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/blue"
+        android:fontFamily="serif-monospace"
+        android:text="Rewind"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-        <Button
-            android:id="@+id/surprise_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Play Surprise" />
+    <Button
+        android:id="@+id/surprise_button"
+        android:layout_width="145dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/yellow"
+        android:fontFamily="serif-monospace"
+        android:text="Surprise"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/elimination_button" />
 
-        <Button
-            android:id="@+id/swipe_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Play Swipe" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/swipe_button"
+        android:layout_width="145dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/green"
+        android:fontFamily="serif-monospace"
+        android:text="Swipe"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rewind_button" />
+
+
 </android.support.constraint.ConstraintLayout>
