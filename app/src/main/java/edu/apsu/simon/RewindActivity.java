@@ -26,6 +26,7 @@ import java.io.FileReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
@@ -326,9 +327,13 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
             gameOver();
         }
 
-        if(selection>0){
+        if(selection>sequence.size()){
             continueSequence();
         }
+    }
+
+    private void reverse(){
+        Collections.reverse(sequence);
     }
 
     private void activateButton(int x){
