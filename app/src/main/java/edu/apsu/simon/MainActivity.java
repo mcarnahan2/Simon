@@ -20,11 +20,11 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.about_button).setOnClickListener(new AboutListener());
 
-        Button b = findViewById(R.id.elimination_button);
+        Button b = findViewById(R.id.classic_button);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), EliminationActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ClassicActivity.class);
                 startActivity(intent);
             }
         });
@@ -47,14 +47,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        b = findViewById(R.id.classic_button);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ClassicActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private class AboutListener implements View.OnClickListener {
