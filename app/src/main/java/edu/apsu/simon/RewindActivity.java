@@ -121,7 +121,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         public void onClick(View view) {
             //startButton.setEnabled(false);
             aboutButton.setEnabled(false);
-            continueSequence();
+            start();
 
         }
     }
@@ -301,6 +301,21 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
                 yellow.setVisibility(View.VISIBLE);
             }
         }, 500);
+    }
+
+    private void start(){
+        player=false;
+        blue.setEnabled(false);
+        green.setEnabled(false);
+        red.setEnabled(false);
+        yellow.setEnabled(false);
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                createSequence();
+            }
+        }, 2000);
     }
 
     private void continueSequence(){
