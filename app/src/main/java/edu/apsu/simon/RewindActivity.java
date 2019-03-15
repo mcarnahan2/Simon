@@ -29,11 +29,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     private ArrayList<Integer> sequence;
     private Random random;
     private int randomButton;
-    private boolean blueClicked;
-    private boolean greenClicked;
-    private boolean yellowClicked;
-    private boolean redClicked;
-    private boolean buttonClicked;
     private boolean player;
     private Handler handler;
     private SoundPool soundPool;
@@ -121,7 +116,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         public void onClick(View view) {
             sequence.clear();
-            //startButton.setEnabled(false);
             aboutButton.setEnabled(false);
             continueSequence();
 
@@ -159,56 +153,24 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         if(player){
             if(v.getId() == blue.getId()){
                 sequenceActivity(blue);
+                playSound(blueSampleId);
                 sequenceChecker(1);
             } else if(v.getId() == green.getId()){
                 sequenceActivity(green);
+                playSound(greenSampleId);
                 sequenceChecker(2);
             } else if(v.getId() == red.getId()){
                 sequenceActivity(red);
+                playSound(redSampleId);
                 sequenceChecker(3);
             } else if(v.getId() == yellow.getId()){
                 sequenceActivity(yellow);
+                playSound(yellowSampleId);
                 sequenceChecker(4);
             }
 
         }
     }
-
-    /*class BlueListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            blueClicked = true;
-            playSound(blueSampleId);
-            y=1;
-        }
-    }
-
-    class GreenListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            greenClicked = true;
-            playSound(greenSampleId);
-            y=2;
-        }
-    }
-
-    class YellowListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            yellowClicked = true;
-            playSound(yellowSampleId);
-            y=4;
-        }
-    }
-
-    class RedListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            redClicked = true;
-            playSound(redSampleId);
-            y=3;
-        }
-    }*/
 
     private void createSequence(){
         random = new Random();
@@ -238,60 +200,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
             yellow.setEnabled(true);
         }
     }
-
-
-
-    /*private void blueFlashOff(){
-       blue.setVisibility(View.INVISIBLE);
-    }
-
-    private void blueFlashOn(){
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                blue.setVisibility(VISIBLE);
-            }
-        },500);
-    }
-
-    private void greenFlashOff(){
-        green.setVisibility(View.INVISIBLE);
-    }
-
-    private void greenFlashOn(){
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                green.setVisibility(VISIBLE);
-            }
-        }, 500);
-    }
-
-    private void redFlashOff(){
-        red.setVisibility(View.INVISIBLE);
-    }
-
-    private void redFlashOn(){
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                red.setVisibility(VISIBLE);
-            }
-        },500);
-    }
-
-    private void yellowFlashOff(){
-        yellow.setVisibility(View.INVISIBLE);
-    }
-
-    private void yellowFlashOn(){
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                yellow.setVisibility(VISIBLE);
-            }
-        }, 500);
-    }*/
 
     private void sequenceActivity(final ImageButton button){
         button.setVisibility(View.INVISIBLE);
@@ -343,24 +251,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
                 createSequence();
             }
         }, 3000);
-
-        //time += 1000;
-
-        /*handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                sequenceChecker();
-                if(sequenceChecker()){
-                    currentScore+=1;
-                    if(currentScore > highScore){
-                        highScore=currentScore;
-                    }
-                    continueSequence();
-                } else {
-                    gameOver();
-                }
-            }
-        }, time);*/
     }
 
     private void sequenceChecker(int x){
@@ -413,5 +303,22 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         AlertDialog alertDialog = dialog.create();
         alertDialog.show();
         startButton.setEnabled(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (soundPool != null) {
+            soundPool.release();
+            soundPool = null;
+
+            soundsLoaded.clear();
+        }
     }
 }
