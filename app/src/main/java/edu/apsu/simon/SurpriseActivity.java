@@ -307,11 +307,6 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
     }
