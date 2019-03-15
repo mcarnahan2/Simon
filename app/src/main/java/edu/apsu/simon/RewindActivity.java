@@ -374,7 +374,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
 
             selection++;
         } else{
-            Log.i("GAME", "Game over");
+            gameOver();
         }
 
         if(selection>=sequence.size()){
