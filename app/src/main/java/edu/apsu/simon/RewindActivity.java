@@ -56,6 +56,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     private Button startButton;
     private Button aboutButton;
     private TextView playerTv;
+    private String playerText="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,12 +230,13 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
             },3000);
         } else {
             selection=0;
+            playerText="Player Turn";
+            playerTv.setText(playerText);
             player=true;
             blue.setEnabled(true);
             green.setEnabled(true);
             red.setEnabled(true);
             yellow.setEnabled(true);
-            player=true;
         }
     }
 
@@ -317,6 +319,8 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void continueSequence(){
+        playerText="Simon Turn";
+        playerTv.setText(playerText);
         player = false;
         blue.setEnabled(false);
         green.setEnabled(false);
