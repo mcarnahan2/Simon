@@ -198,7 +198,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
                 playSound(yellowSampleId);
                 sequenceChecker(4);
             }
-
         }
     }
 
@@ -223,6 +222,9 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         random = new Random();
         randomButton = random.nextInt(4)+1;
         sequence.add(randomButton);
+        Log.i("SELECTION", "Selection in sequence before reset.  Value is " + selection);
+        selection=sequence.size();
+        Log.i("SELECTION", "Selection in sequence after reset.  Value is " + selection);
         sequence(0);
     }
 
@@ -237,7 +239,9 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
                 }
             },3000);
         } else {
+            /*Log.i("SELECTION", "Selection in sequence before reset.  Value is " + selection);
             selection=sequence.size();
+            Log.i("SELECTION", "Selection in sequence after reset.  Value is " + selection);*/
             playerText="Player Turn";
             playerTv.setText(playerText);
             player=true;
@@ -311,7 +315,9 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void sequenceChecker(int x){
-        if(x==sequence.get(selection)){
+        Log.i("SELECTION", "Selection in sc.  Value is " + selection);
+        if(x==sequence.get(selection-1)){
+            Log.i("SELECTION", "Selection in if statement.  Value is " + selection);
             if(x==1 && blue.isSelected()){
                 Log.i("CORRECT", "i");
             } else if(x==2 && green.isSelected()){
@@ -322,13 +328,21 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
                 Log.i("CORRECT", "i");
             }
 
+            Log.i("SELECTION", "Selection in before increment.  Value is " + selection);
             selection--;
+            Log.i("SELECTION", "Selection after increment.  Value is " + selection);
         } else{
             gameOver();
         }
-
-        if(selection>sequence.size()){
+        Log.i("SELECTION", "Selection in sc before second if.  Value is " + selection);
+        if(selection==0){
+            Log.i("SELECTION", "Selection in second if before cs.  Value is " + selection);
             continueSequence();
+            Log.i("SELECTION", "Selection in seconde if after cs.  Value is " + selection);
+        } else{
+            Log.i("SELECTION", "Selection in else, before.  Value is " + selection);
+            selection=selection;
+            Log.i("SELECTION", "Selection in else, after.  Value is " + selection);
         }
     }
 
