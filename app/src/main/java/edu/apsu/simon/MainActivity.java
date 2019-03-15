@@ -52,15 +52,14 @@ public class MainActivity extends AppCompatActivity {
     private class AboutListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            String message = "<html/>" +
+            String message = "<html>" +
                     "<h1> About Game </h1>" +
                     "<p><b>Songs:</b> Sound Bible </p>" +
                     "<p><b>Images:</b> Open Clip Art </p>" +
                     "<p><b>Creator:</b> Mariah Carnahan & Keenya Gilchrist </p>" +
                     "<p><b>Links:</b> " +
-                    "<a href= 'http://soundbible.com/'>" +
-                    "</a>" +
-                    "<a href= 'https://openclipart.org/'></a></p>" +
+                    "<a href= 'http://soundbible.com/'>Sound Bible</a><br>" +
+                    "<a href= 'https://openclipart.org/'>Open Clip Art</a></p>" +
                     "<p><b>License:</b> CC-BY 3.0 </p>" +
                     "</html>";
 
