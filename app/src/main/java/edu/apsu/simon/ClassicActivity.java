@@ -33,6 +33,7 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
     private int snowId;
     private int thunderstormId;
     private int tornadoId;
+    private int looserId;
     private int selection;
 
     private SoundPool soundPool;
@@ -73,6 +74,7 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
         snowId = soundPool.load(this, R.raw.snow, 1);
         thunderstormId = soundPool.load(this, R.raw.thunder, 1);
         tornadoId = soundPool.load(this, R.raw.tornado, 1);
+        looserId = soundPool.load(this, R.raw.looser, 1);
 
         textview_player = findViewById(R.id.textview_player);
 
@@ -88,10 +90,10 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Rules!");
-        dialog.setMessage("Player 1 goes first once Player 1 has lost pass the game" +
-                "to the next player. Each time a player is eliminated, start a new game" +
-                "players. Keep going until only one player" +
-                "wins the game! ");
+        dialog.setMessage("Simon goes first by lighting up one lenses giving you the " +
+                "first signal. Repeat this signal by pressing that lens. As the game " +
+                "goes on Simon will add on more buttons to the seqence. If you press the incorrect " +
+                "sequence you loose.");
         dialog.setPositiveButton("Let's Play",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -150,8 +152,17 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void gameOver() {
+        playSound(looserId);
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage("GAME OVER ");
+        dialog.setTitle("GAME OVER, YOU LOST!");
+        dialog.setMessage("Press play to play again or hit the back button to end game");
+        dialog.setPositiveButton("Play",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startGame();
+                    }
+                });
         AlertDialog alertDialog = dialog.create();
         alertDialog.show();
     }

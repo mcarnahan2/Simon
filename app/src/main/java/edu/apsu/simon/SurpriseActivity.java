@@ -33,6 +33,7 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
    private int rooster01;
     private int rooster10;
     private int rooster11;
+    private int looserId;
     private int selection;
 
     private SoundPool soundPool;
@@ -75,6 +76,7 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
         rooster01 = soundPool.load(this, R.raw.rooster, 1);
         rooster10 = soundPool.load(this, R.raw.rooster, 1);
         rooster11 = soundPool.load(this, R.raw.rooster, 1);
+        looserId = soundPool.load(this, R.raw.looser, 1);
 
         textview_player = findViewById(R.id.textview_player);
 
@@ -107,7 +109,6 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        //startGame();
 
         if (player1) {
             if (v.getId() == rooster_imageButton00.getId()){
@@ -152,8 +153,17 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void gameOver() {
+        playSound(looserId);
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage("GAME OVER ");
+        dialog.setTitle("GAME OVER, YOU LOST!");
+        dialog.setMessage("Press play to play again or hit the back button to end game");
+        dialog.setPositiveButton("Play",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startGame();
+                    }
+                });
         AlertDialog alertDialog = dialog.create();
         alertDialog.show();
     }
@@ -255,6 +265,10 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     @Override
     protected void onResume() {

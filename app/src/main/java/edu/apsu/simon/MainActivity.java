@@ -54,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             String message = "<html/>" +
                     "<h1> About Game </h1>" +
-                    "<p><b>Song:</b>  </p>" +
+                    "<p><b>Songs:</b> Sound Bible </p>" +
+                    "<p><b>Images:</b> Open Clip Art </p>" +
                     "<p><b>Creator:</b> Mariah Carnahan & Keenya Gilchrist </p>" +
-                    "<p><b>Link:</b> " +
-                    "<a href= ''>" +
-                    "</a></p>" +
-                    "https://opengameart.org/content/oves-essential-game-audio-pack-collection-160-files-updated" +
+                    "<p><b>Links:</b> " +
+                    "<a href= 'http://soundbible.com/'> </a>" +
+                    "<a href= 'https://openclipart.org'> </a> </p>" +
                     "<p><b>License:</b> CC-BY 3.0 </p>" +
                     "</html>";
 
