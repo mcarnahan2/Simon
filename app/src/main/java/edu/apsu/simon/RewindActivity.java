@@ -121,7 +121,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         public void onClick(View view) {
             //startButton.setEnabled(false);
             aboutButton.setEnabled(false);
-            start();
+            continueSequence();
 
         }
     }
@@ -208,6 +208,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         random = new Random();
         randomButton = random.nextInt(4)+1;
         sequence.add(randomButton);
+        sequence(0);
     }
 
     private void sequence(final int x){
@@ -250,6 +251,8 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
             player=true;
         }
     }
+
+
 
     private void blueFlashOff(){
        blue.setVisibility(View.INVISIBLE);
@@ -303,21 +306,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         }, 500);
     }
 
-    private void start(){
-        player=false;
-        blue.setEnabled(false);
-        green.setEnabled(false);
-        red.setEnabled(false);
-        yellow.setEnabled(false);
-
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                createSequence();
-            }
-        }, 2000);
-    }
-
     private void continueSequence(){
         player = false;
         blue.setEnabled(false);
@@ -358,6 +346,10 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         }, time);*/
+    }
+
+    private void sequenceAction(final ImageButton button){
+
     }
 
     private void sequenceChecker(int x){
