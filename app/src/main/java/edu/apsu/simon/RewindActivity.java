@@ -2,6 +2,7 @@ package edu.apsu.simon;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -47,7 +48,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     private int yellowSampleId;
     private int redSampleId;
     private int currentScore=0;
-    private int highScore=0;
+    private int highScore;
     private int selection;
     private ImageButton blue;
     private ImageButton green;
@@ -58,9 +59,10 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     private Button quitButton;
     private TextView playerTv;
     private TextView cs;
-    TextView hs;
+    private TextView hs;
+    private Context context;
     private String playerText="";
-    private File file = new File("highscoreRewind.txt");
+    private final String DATA_FILENAME = "highScoreRewind.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +102,20 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         yellowSampleId = soundPool.load(this, R.raw.yellow, 1);
         redSampleId = soundPool.load(this, R.raw.red, 1);
 
+        context = getApplicationContext();
+        SharedPreferences prefs = this.getSharedPreferences("GET_HIGH_SCORE", getApplicationContext().MODE_PRIVATE);
+        highScore = prefs.getInt("HIGH_SCORE", 0);
+
+        SharedPreferences hScore= getSharedPreferences("GET_HIGH_SCORE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = hScore.edit();
+        editor.putInt("HIGH_SCORE", highScore);
+        editor.commit();
+
         hs = findViewById(R.id.high_score_textView);
-        //hs.setText(readData());
+
+        String hsString = Integer.toString(highScore);
+
+        hs.setText(hsString);
         cs = findViewById(R.id.current_score_textView);
 
         startButton = findViewById(R.id.start_button);
@@ -127,20 +141,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
 
         playerTv=findViewById(R.id.turn_textView);
     }
-
-    /*private Integer readData() {
-        try{
-              FileInputStream fis = openFileInput(DATA_FILENAME);
-              Scanner scanner = new Scanner(fis);
-              while(scanner.hasNext()) {
-                  String highScore = scanner.next();
-              }
-          } catch (FileNotFoundException e){
-              //Cannot have a file
-          }
-
-          return highScore;
-    };*/
 
     //calls the sequence to start the game
     class StartListener implements View.OnClickListener {
@@ -201,7 +201,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    /*private void writeDate(){
+    /*private void writeDate(String highScore,){
         try {
             FileOutputStream fos = openFileOutput(DATA_FILENAME, Context.MODE_PRIVATE);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
@@ -290,6 +290,10 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
 
         if(currentScore>highScore){
             highScore=currentScore;
+            SharedPreferences hs= getSharedPreferences("GET_HIGH_SCORE", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = hs.edit();
+            editor.putInt("HIGH_SCORE", highScore);
+            editor.commit();
         }
 
         /*try{
@@ -344,10 +348,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
             selection=selection;
             Log.i("SELECTION", "Selection in else, after.  Value is " + selection);
         }
-    }
-
-    private void reverse(){
-        Collections.reverse(sequence);
     }
 
     private void activateButton(int x){
