@@ -1,6 +1,8 @@
 package edu.apsu.simon;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -26,6 +28,9 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
     private ImageButton tornado_imageButton;
     private ImageButton thunderstorm_imageButton;
 
+    private TextView cs;
+    private TextView hs;
+
     private TextView textview_player;
     private boolean player;
 
@@ -39,6 +44,11 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
     private SoundPool soundPool;
 
     private Set<Integer> soundsLoaded;
+
+    private Context context;
+
+    private int highScore;
+    private int currentScore=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +85,22 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
         thunderstormId = soundPool.load(this, R.raw.thunder, 1);
         tornadoId = soundPool.load(this, R.raw.tornado, 1);
         looserId = soundPool.load(this, R.raw.looser, 1);
+
+        context = getApplicationContext();
+        SharedPreferences prefs = this.getSharedPreferences("GET_HIGH_SCORE_CLASSIC", getApplicationContext().MODE_PRIVATE);
+        highScore = prefs.getInt("HIGH_SCORE_CLASSIC", 0);
+
+        SharedPreferences hScore= getSharedPreferences("GET_HIGH_SCORE_CLASSIC", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = hScore.edit();
+        editor.putInt("HIGH_SCORE_CLASSIC", highScore);
+        editor.commit();
+
+        hs = findViewById(R.id.high_score_textView);
+
+        String hsString = Integer.toString(highScore);
+
+        hs.setText(hsString);
+        cs = findViewById(R.id.current_score_textView);
 
         textview_player = findViewById(R.id.textview_player);
 
@@ -142,6 +168,20 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
         thunderstorm_imageButton.setEnabled(false);
         tornado_imageButton.setEnabled(false);
 
+        if(currentScore>highScore){
+            highScore=currentScore;
+            SharedPreferences hs= getSharedPreferences("GET_HIGH_SCORE_CLASSIC", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = hs.edit();
+            editor.putInt("HIGH_SCORE_CLASSIC", highScore);
+            editor.commit();
+        }
+
+        String csString = Integer.toString(currentScore);
+        String hsString = Integer.toString(highScore);
+
+        cs.setText(csString);
+        hs.setText(hsString);
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -149,6 +189,7 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
                 sequence();
             }
         }, 3000);
+        currentScore++;
     }
 
     private void gameOver() {
