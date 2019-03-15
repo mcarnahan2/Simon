@@ -23,6 +23,8 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import static android.view.View.VISIBLE;
+
 public class RewindActivity extends AppCompatActivity implements View.OnClickListener{
     private ArrayList<Integer> sequence;
     private Random random;
@@ -156,12 +158,16 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v){
         if(player){
             if(v.getId() == blue.getId()){
+                sequenceActivity(blue);
                 sequenceChecker(1);
             } else if(v.getId() == green.getId()){
+                sequenceActivity(blue);
                 sequenceChecker(2);
             } else if(v.getId() == red.getId()){
+                sequenceActivity(blue);
                 sequenceChecker(3);
             } else if(v.getId() == yellow.getId()){
+                sequenceActivity(blue);
                 sequenceChecker(4);
             }
 
@@ -214,24 +220,16 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
     private void sequence(final int x){
         if(x<sequence.size()) {
             if (sequence.get(x) == 1) {
-                blueFlashOff();
-                playSound(blueSampleId);
-                blueFlashOn();
+                sequenceActivity(blue);
                 //Log.i("COLOR", "BLUE");
             } else if (sequence.get(x) == 2) {
-                greenFlashOff();
-                playSound(greenSampleId);
-                greenFlashOn();
+                sequenceActivity(green);
                 //Log.i("COLOR", "GREEN");
             } else if (sequence.get(x) == 3) {
-                redFlashOff();
-                playSound(redSampleId);
-                redFlashOn();
+                sequenceActivity(red);
                 //Log.i("COLOR", "RED");
             } else if (sequence.get(x) == 4) {
-                yellowFlashOff();
-                playSound(yellowSampleId);
-                yellowFlashOn();
+                sequenceActivity(yellow);
                 //Log.i("COLOR", "YELLOW");
             }
 
@@ -254,7 +252,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
 
 
 
-    private void blueFlashOff(){
+    /*private void blueFlashOff(){
        blue.setVisibility(View.INVISIBLE);
     }
 
@@ -262,7 +260,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                blue.setVisibility(View.VISIBLE);
+                blue.setVisibility(VISIBLE);
             }
         },500);
     }
@@ -275,7 +273,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                green.setVisibility(View.VISIBLE);
+                green.setVisibility(VISIBLE);
             }
         }, 500);
     }
@@ -288,7 +286,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                red.setVisibility(View.VISIBLE);
+                red.setVisibility(VISIBLE);
             }
         },500);
     }
@@ -301,7 +299,31 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                yellow.setVisibility(View.VISIBLE);
+                yellow.setVisibility(VISIBLE);
+            }
+        }, 500);
+    }*/
+
+    private void sequenceActivity(final ImageButton button){
+        button.setVisibility(View.INVISIBLE);
+
+        if(blue.isSelected()){
+            playSound(blueSampleId);
+        }
+        if(green.isSelected()){
+            playSound(greenSampleId);
+        }
+        if(red.isSelected()){
+            playSound(redSampleId);
+        }
+        if (yellow.isSelected()) {
+            playSound(yellowSampleId);
+        }
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                button.setVisibility(VISIBLE);
             }
         }, 500);
     }
@@ -312,6 +334,8 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         green.setEnabled(false);
         red.setEnabled(false);
         yellow.setEnabled(false);
+        startButton.setEnabled(false);
+        aboutButton.setEnabled(false);
 
         TextView hs = findViewById(R.id.high_score_textView);
         TextView cs = findViewById(R.id.current_score_textView);
@@ -348,10 +372,6 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         }, time);*/
     }
 
-    private void sequenceAction(final ImageButton button){
-
-    }
-
     private void sequenceChecker(int x){
         if(x==sequence.get(selection)){
             if(x==1 && blue.isSelected()){
@@ -374,8 +394,10 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void sequencePlay(final ImageButton button){
-
+    private void activateButton(int x){
+        if(x == 1){
+            playSound(blueSampleId);
+        }
     }
 
     private void playSound(int sampleId){
