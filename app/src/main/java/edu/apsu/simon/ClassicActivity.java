@@ -41,6 +41,7 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
     private ImageButton yellow;
     private Button startButton;
     private Button aboutButton;
+    private Button quitButton;
     private TextView playerTv;
     private String playerText="";
 
@@ -82,14 +83,14 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
         yellowSampleId = soundPool.load(this, R.raw.yellow, 1);
         redSampleId = soundPool.load(this, R.raw.red, 1);
 
-        Button restartButton = findViewById(R.id.restart_button);
-        restartButton.setOnClickListener(new ClassicActivity.RestartListener());
-
         startButton = findViewById(R.id.start_button);
         startButton.setOnClickListener(new ClassicActivity.StartListener());
 
         aboutButton = findViewById(R.id.about_button);
         aboutButton.setOnClickListener(new ClassicActivity.AboutListener());
+
+        quitButton = findViewById(R.id.quit_button);
+        quitButton.setOnClickListener(new ClassicActivity.QuitListener());
 
         blue = findViewById(R.id.blue_imageButton);
         blue.setOnClickListener(this);
@@ -117,11 +118,10 @@ public class ClassicActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    class RestartListener implements View.OnClickListener{
+    class QuitListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            //add alert message
-            continueSequence();
+            onBackPressed();
         }
     }
 
