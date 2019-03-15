@@ -236,7 +236,7 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
                 }
             },3000);
         } else {
-            selection=0;
+            selection=sequence.size();
             playerText="Player Turn";
             playerTv.setText(playerText);
             player=true;
@@ -321,12 +321,12 @@ public class RewindActivity extends AppCompatActivity implements View.OnClickLis
                 Log.i("CORRECT", "i");
             }
 
-            selection++;
+            selection--;
         } else{
             gameOver();
         }
 
-        if(selection>=sequence.size()){
+        if(selection>0){
             continueSequence();
         }
     }
