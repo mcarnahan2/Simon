@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        b = findViewById(R.id.swipe_button);
+        b = findViewById(R.id.classic_button);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

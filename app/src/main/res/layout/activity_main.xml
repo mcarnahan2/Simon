@@ -70,7 +70,7 @@
         app:layout_constraintTop_toBottomOf="@+id/elimination_button" />
 
     <Button
-        android:id="@+id/swipe_button"
+        android:id="@+id/classic_button"
         android:layout_width="145dp"
         android:layout_height="74dp"
         android:layout_marginTop="8dp"
@@ -78,7 +78,7 @@
         android:layout_marginBottom="8dp"
         android:background="@color/green"
         android:fontFamily="serif-monospace"
-        android:text="Swipe"
+        android:text="Classic"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/about_button"
