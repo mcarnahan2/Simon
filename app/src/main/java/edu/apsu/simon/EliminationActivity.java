@@ -28,7 +28,7 @@ public class EliminationActivity extends AppCompatActivity implements View.OnCli
     private ImageButton thunderstorm_imageButton;
 
     private TextView textview_player;
-    private boolean player1;
+    private boolean player;
 
     private int rainId;
     private int snowId;
@@ -107,25 +107,21 @@ public class EliminationActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        startGame();
 
-        if (player1 = true) {
-            if (rain_imageButton.isSelected()){
+        if (player) {
+            if (v.getId() == rain_imageButton.getId()){
                 buttonColors(rain_imageButton, getColor(R.color.yellow), getColor(
                         R.color.light_yellow));
                 compareSequence(0);
-            }
-            if (snow_imageButton.isSelected()) {
+            } else if (v.getId() == snow_imageButton.getId()) {
                 buttonColors(snow_imageButton, getColor(R.color.green),
                         R.color.light_green);
                 compareSequence(1);
-            }
-            if (thunderstorm_imageButton.isSelected()) {
+            } else if (v.getId() == thunderstorm_imageButton.getId()) {
                 buttonColors(thunderstorm_imageButton, getColor(R.color.blue),
                         R.color.light_blue);
                 compareSequence(2);
-            }
-            if (tornado_imageButton.isSelected()) {
+            } else if (v.getId() == tornado_imageButton.getId()) {
                 buttonColors(tornado_imageButton, getColor(R.color.red),
                         R.color.red);
                 compareSequence(3);
@@ -139,7 +135,7 @@ public class EliminationActivity extends AppCompatActivity implements View.OnCli
     private void startGame() {
 
         textview_player.setText("SIMON TURN");
-        player1=false;
+        player=false;
         rain_imageButton.setEnabled(false);
         snow_imageButton.setEnabled(false);
         thunderstorm_imageButton.setEnabled(false);
@@ -234,13 +230,13 @@ public class EliminationActivity extends AppCompatActivity implements View.OnCli
                 }
             }, 3000);
         } else {
-            textview_player.setText("PLAYER TURN");
-            player1=true;
-            selection=0;
             rain_imageButton.setEnabled(true);
             snow_imageButton.setEnabled(true);
             thunderstorm_imageButton.setEnabled(true);
             tornado_imageButton.setEnabled(true);
+            textview_player.setText("PLAYER TURN");
+            player=true;
+            selection=0;
         }
 
     }

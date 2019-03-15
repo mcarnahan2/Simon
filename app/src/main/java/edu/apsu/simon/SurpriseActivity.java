@@ -107,25 +107,25 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        startGame();
+        //startGame();
 
-        if (player1 = true) {
-            if (rooster_imageButton00.isSelected()){
+        if (player1) {
+            if (rooster_imageButton00.isClickable()){
                 buttonColors(rooster_imageButton00, getColor(R.color.blue), getColor(
                         R.color.light_blue));
                 compareSequence(0);
             }
-            if (rooster_imageButton01.isSelected()){
+            if (rooster_imageButton01.isClickable()){
                 buttonColors(rooster_imageButton01, getColor(R.color.blue), getColor(
                         R.color.light_blue));
                 compareSequence(1);
             }
-            if (rooster_imageButton10.isSelected()){
+            if (rooster_imageButton10.isClickable()){
                 buttonColors(rooster_imageButton10, getColor(R.color.blue), getColor(
                         R.color.light_blue));
                 compareSequence(2);
             }
-            if (rooster_imageButton11.isSelected()){
+            if (rooster_imageButton11.isClickable()){
                 buttonColors(rooster_imageButton11, getColor(R.color.blue), getColor(
                         R.color.light_blue));
                 compareSequence(3);
@@ -147,7 +147,7 @@ public class SurpriseActivity extends AppCompatActivity implements View.OnClickL
             public void run() {
                 sequence();
             }
-        }, 3000);
+        }, 2000);
     }
 
     private void gameOver() {
